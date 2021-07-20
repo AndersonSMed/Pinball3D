@@ -16,17 +16,19 @@ public class Pallet : AbstractInteractibleElement {
         var motor = this.hinge.motor;
         
         float targetVelocity;
+        bool shouldRotatePallet =
+            Input.GetKey(this.rotationTriggerKey) && GameManager.Instance.isBallInBoard;
 
-        if (Input.GetKey(this.rotationTriggerKey)) {
+        if (shouldRotatePallet) {
             targetVelocity = -1 * palletSpeed;
         } else {
             targetVelocity = palletSpeed;
         }
 
         if (motor.targetVelocity != targetVelocity) {
-          motor.targetVelocity = targetVelocity;
-          motor.force = palletSpeed;
-          this.hinge.motor = motor;
+            motor.targetVelocity = targetVelocity;
+            motor.force = palletSpeed;
+            this.hinge.motor = motor;
         }
     }
 

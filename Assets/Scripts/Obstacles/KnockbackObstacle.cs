@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CylinderObstacle : AbstractObstacle {
+public class KnockbackObstacle : AbstractObstacle {
     [SerializeField]
     private float knockbackForce = 0f;
 

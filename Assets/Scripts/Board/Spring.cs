@@ -16,8 +16,7 @@ public class Spring : AbstractInteractibleElement {
     [SerializeField]
     private float distanceAccumulator;
 
-    [SerializeField]
-    private KeyCode triggerKey;
+    private bool isPressingKey = false;
 
     private Vector3 initialPosition;
 
@@ -38,10 +37,14 @@ public class Spring : AbstractInteractibleElement {
         this.greatestDistance = 0f;
     }
 
-    public override void CustomUpdate() {}
+    public override void CustomUpdate() {
+        this.isPressingKey = Input.anyKey;
+    }
 
     public override void CustomFixedUpdate() {
-        if(Input.GetKey("space")) {
+        bool shouldMoveDown = this.isPressingKey && !GameManager.Instance.isBallInBoard;
+        
+        if (shouldMoveDown) {
             this.selfTransform.position = Vector3.MoveTowards(
                 this.selfTransform.position,
                 this.maxTransform.position,

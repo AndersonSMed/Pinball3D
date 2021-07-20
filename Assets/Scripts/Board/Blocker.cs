@@ -14,6 +14,7 @@ public class Blocker : AbstractInteractibleElement {
     private void OnTriggerExit(Collider outerCollider) {
         this.selfCollider.enabled = true;
         this.mesh.enabled = true;
+        GameManager.Instance.SetBallInsideBoard();
     }
 
     public override void CustomUpdate() {

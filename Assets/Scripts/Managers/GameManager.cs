@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour {
 
     public bool isGameEnded { get; private set; }
 
+    public bool isBallInBoard { get; private set; }
+
     public bool isGameRuning {
         get {
             return isGameStarted && !isGameEnded;
@@ -39,6 +41,7 @@ public class GameManager : MonoBehaviour {
         this.leftBalls = 3;
         this.isGameStarted = false;
         this.isGameEnded = false;
+        this.isBallInBoard = false;
     }
 
     private void PreGameUpdate() {
@@ -50,7 +53,7 @@ public class GameManager : MonoBehaviour {
     private void InGameUpdate() {}
 
     private void PostGameUpdate() {
-        if (Input.anyKey) {
+        if (Input.GetKeyDown(KeyCode.Escape)) {
               this.RestartGameValues();
               this.isGameStarted = true;
               this.isGameEnded = false;
@@ -62,12 +65,17 @@ public class GameManager : MonoBehaviour {
         this.RestartGameValues();
     }
 
+    public void SetBallInsideBoard() {
+        this.isBallInBoard = true;
+    }
+
     public void IncreaseplayerScore(float pontuation) {
         this.playerScore += pontuation;
     }
 
     public void DecreaseLeftBalls() {
         this.leftBalls -= 1;
+        this.isBallInBoard = false;
         if (this.leftBalls == 0) {
             this.isGameEnded = true;
         }
